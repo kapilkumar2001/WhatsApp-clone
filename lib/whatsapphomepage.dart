@@ -15,13 +15,20 @@ class WhatsAppPage extends StatefulWidget {
 class _WhatsAppPageState extends State<WhatsAppPage> with SingleTickerProviderStateMixin{
 
   TabController _tabController;
-
+  bool showfab = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _tabController = new TabController(length: 4, vsync: this,initialIndex: 1);
+    _tabController.addListener(() {
+      if(_tabController.index==1)
+        showfab=true;
+      else
+        showfab=false;
+      setState(() {});
+    });
   }
 
   @override
@@ -55,11 +62,11 @@ class _WhatsAppPageState extends State<WhatsAppPage> with SingleTickerProviderSt
             new CallsPage(),
           ],
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: showfab? new FloatingActionButton(
         backgroundColor: Theme.of(context).accentColor,
           child: new Icon(Icons.message, color: Colors.white,),
           onPressed: ()=>{},
-      ),
+      ):null,
     );
   }
 }
